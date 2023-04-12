@@ -1,0 +1,21 @@
+from django.http import HttpResponse
+from django.shortcuts import render
+
+from posts.forms import SelectPostFromAuthor
+from posts.models import Author
+from django.template.loader import render_to_string
+
+
+def htmx_form(request):
+    form = SelectPostFromAuthor(context={"author": 1})
+    return render(request, "from.html", {"form": form})
+
+
+
+
+def htmx_models(request):
+    form = SelectPostFromAuthor(context=request.GET)
+    au = Author.objects.get(id=request.GET.get('author'))
+    form.fields['author'].initial = au
+    form_html = render_to_string("form_only.html", {"form": form}, request=request)
+    return HttpResponse(form_html)
