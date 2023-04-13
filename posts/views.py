@@ -14,8 +14,6 @@ def htmx_form(request):
 
 
 def htmx_models(request):
-    form = SelectPostFromAuthor(context=request.GET)
-    au = Author.objects.get(id=request.GET.get('author'))
-    form.fields['author'].initial = au
+    form = SelectPostFromAuthor(context=request.GET, initial={**request.GET})
     form_html = render_to_string("form_only.html", {"form": form}, request=request)
     return HttpResponse(form_html)
