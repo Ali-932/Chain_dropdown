@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     "django_browser_reload",
-    'blogs',
+    "django_htmx",
     'posts',
 
 ]
@@ -56,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
+
 ]
 
 ROOT_URLCONF = 'config.urls'

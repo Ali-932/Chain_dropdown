@@ -9,7 +9,7 @@ from crispy_forms.layout import Layout, Div, Field, Submit
 
 
 def is_hidden(statement, widget):
-    return widget if statement  else HiddenInput()
+    return widget if statement else HiddenInput()
 
 
 class SelectPostFromAuthor(DynamicFormMixin, forms.Form):
@@ -28,9 +28,8 @@ class SelectPostFromAuthor(DynamicFormMixin, forms.Form):
         widget=lambda form: is_hidden(form.context.get("post"), forms.Select)
 
     )
-    notes = DynamicField(
-        forms.CharField,
-        # widget=lambda form: is_hidden(form.context.get("author"), forms.Textarea)
+    notes = forms.CharField(
+
     )
 
     def __init__(self, *args, **kwargs):
@@ -39,13 +38,13 @@ class SelectPostFromAuthor(DynamicFormMixin, forms.Form):
         self.helper.layout = Layout(
             Div(
                 Field('author', css_class='form-control included',
-                      **{'hx-get': reverse('chained-author'), 'hx-target': '#form', 'hx-trigger': 'change',
+                      **{'hx-get': reverse('form'), 'hx-target': '#form', 'hx-trigger': 'change',
                          'hx-swap': 'outerHTML'}),
                 css_class='form-group'
             ),
             Div(
                 Field('post', css_class='form-control', css_id='id_blog',
-                      **{'hx-get': reverse('chained-author'), 'hx-target': '#form', 'hx-trigger': 'change',
+                      **{'hx-get': reverse('form'), 'hx-target': '#form', 'hx-trigger': 'change',
                          'hx-swap': 'outerHTML', 'hx-include':'.included'}
                       ),
                 css_class='form-group'
