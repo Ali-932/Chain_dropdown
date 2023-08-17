@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 
 
 def htmx_form(request):
-    form = SelectPostFromAuthor(context={"author": 1})
+    form = SelectPostFromAuthor(context={})
     return render(request, "from.html", {"form": form})
 
 

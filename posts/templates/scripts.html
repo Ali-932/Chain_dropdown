@@ -1,0 +1,55 @@
+{% load static %}
+<script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/layout.js' %}"></script>
+<script src="{% static 'js/htmx.js' %}"></script>
+<script src="{% static 'js/alpine.js' %}" defer></script>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/select2.js' %}"></script>
+<script src="{% static 'js/tom-select.complete.js' %}"></script>
+<script src="{% static 'js/cleavejs.js' %}"></script>
+<script src="{% static 'js/cleave-phone.js' %}"></script>
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/daterangepicker.js' %}"></script>
+
+    <!-- HTMX -->
+
+<script>
+    const loader = htmx.find('#spinner')
+if (loader) {
+  loader.style.opacity = '0';
+} else {
+  console.error("Element with ID 'spinner' not found");
+}
+
+    htmx.onLoad(() => {
+        loader.style.opacity = '0'
+        $('select').each(function () {
+            let control = $(this).get(0)
+            if (control.tomselect) {
+                control.tomselect.destroy()
+            }
+            new TomSelect($(this), {
+                create: true,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                },
+                dropdownParent: 'body',
+                highlight: true,
+                plugins: ['clear_button'],
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                placeholder: $(this).data('placeholder'),
+            })
+        })
+
+    })
+
+
+    window.onbeforeunload = function () {
+        loader.style.opacity = '1'
+    }
+
+
+</script>
+
+
